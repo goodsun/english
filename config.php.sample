@@ -1,0 +1,15 @@
+<?php
+
+	$short_main_lang= "JP";
+	$main_lang_cord = "ja-JP";
+	$main_lang_file = "jp.dat";
+	$short_target_lang = "US";
+	$target_lang_cord = "en-US";
+	$target_lang_file = "en.dat";
+
+	$short_main_lang= "IDN";
+	$main_lang_cord = "id-ID";
+	$main_lang_file = "idn.dat";
+	$short_target_lang = "US";
+	$target_lang_cord = "en-US";
+	$target_lang_file = "en.dat";
