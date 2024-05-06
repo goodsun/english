@@ -472,7 +472,7 @@ toys
 tray
 tree
 trot
-TRUE
+true
 turn
 ugly
 undo

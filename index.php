@@ -120,7 +120,8 @@ a {
 	}
 
 	function dictparse($word,$dict) {
-		$piriods = [".",",","!","?"];
+		$piriods = [".",",","!","?","-"];
+		$connector = ["-"];
 		foreach($piriods as $piriod){
 			$word  = str_replace($piriod,' '.$piriod.' ', $word);
 		}
@@ -132,17 +133,23 @@ a {
 		*/
 		$words  = explode(' ', $word);
 		$wordlist = [];
+		$beforePref = " ";
 		foreach($words as $key => $val){
 			if (in_array($val,$piriods)) {
 				$output .= $val;
 			} else if(empty($dict[strtolower($val)])){
-				$output .= " ".$val;
+				$output .= $beforePref.$val;
 			} else {
 				$wordlist[] = [$val,$dict[strtolower($val)]];
-				$output .= " <span onclick='wordAnswer(\"".$val."\",\"".$dict[strtolower($val)]."\")'/>".$val."</span>";
+				$output .= $beforePref."<span onclick='wordAnswer(\"".$val."\",\"".$dict[strtolower($val)]."\")'/>".$val."</span>";
 				if(count($wordlist) <= 10){
 					$output .= "<span class='linknum'>".count($wordlist)."</span>";
 				}
+			}
+			if (in_array($val,$connector)) {
+				$beforePref="";
+			}else{
+				$beforePref=" ";
 			}
 		}
 		$result['output'] = $output;
