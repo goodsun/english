@@ -1,0 +1,1 @@
+var automode = 'auto';

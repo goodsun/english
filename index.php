@@ -6,10 +6,15 @@
 </head>
 <link rel="stylesheet" href="/css/main.css" media="all">
 <link rel="stylesheet" href="/css/modal.css" media="all">
-<script type="text/javascript" async="" src="/js/entool.js"></script>
 <body>
 <?php
 
+	if($_SESSION['automode']=='auto'){
+		echo '<script type="text/javascript" async="" src="/js/auto.js"></script>';
+	}else{
+		echo '<script type="text/javascript" async="" src="/js/noauto.js"></script>';
+	}
+	echo '<script type="text/javascript" async="" src="/js/entool.js"></script><body>';
 	$short_main_lang= "JP";
 	$main_lang_cord = "ja-JP";
 	$main_lang_file = "jp.dat";
@@ -81,6 +86,10 @@
 	}
 
 
+	if(isset($_GET['automode'])){
+		$_SESSION['automode'] = $_GET['automode'];
+	}
+
 	if($_GET['mode'] == 'basic'){
 		unset($_SESSION['study_mode']);
 	}
@@ -149,6 +158,12 @@
 	echo "<a class='lang' href='?lang=target_lang&page=".$page."'>".$short_target_lang."</a>";
 	echo " | <a class='lang' href='?lang=main_lang&page=".$page."'>".$short_main_lang."</a>";
 	echo " | <a class='lang' href='?lang=no&page=".$page."'>NO</a>";
+	echo " | AUTO ";
+	if($_SESSION['automode']=='auto'){
+		echo " <a class='lang' href='?automode=off&page=".$page."'>PLAY ■</a>";
+	}else{
+		echo " <a class='lang' href='?automode=auto&page=".$page."'>STOP ▶</a>";
+	}
 
 	echo ' <br /> ';
 	echo "</h1>";
@@ -249,8 +264,9 @@
 	echo "<a id='clearlink' href='?page=".($page)."&set=delete'><button class='selbutton clear'>clear</button></a>";
 	echo "<a id='masterlink' href='?page=".($page)."&set=success'><button class='selbutton master'>Master</button></a>";
 
-	echo '<input id="answerlink" class="button" type="button" onclick="toggleAnswerModal()" value="Anser" />';
-	echo '<input id="speechlink" class="button" type="button" onclick="speech(\''.str_replace("'","\'",$speech_question).'\')" value="speak" />';
+	echo '<input id="answerlink" class="selbutton" type="button" onclick="toggleAnswerModal()" value="Anser" />';
+	echo "<a href='menu.php'><button class='selbutton clear'>menu</button></a>";
+	echo '<input id="speechlink" class="selbutton" type="button" onclick="speech(\''.str_replace("'","\'",$speech_question).'\')" value="speak" />';
 
 	if(prevPage($arr,$page)){
 		echo "<a id='prevlink' href='?page=".prevPage($arr,$page)."'><button class='button'>Prev Q.".prevPage($arr,$page)."</button></a>";
@@ -298,11 +314,18 @@
 	echo "<div id='quiz'class='noview'>".$question."</div>";
 	echo "<div id='main_lang_cord' class='noview'>".$main_lang_cord."</div>";
 	echo "<div id='target_lang_cord' class='noview'>".$target_lang_cord."</div>";
+	echo "<div id='automode' class='noview'>true</div>";
 
 	foreach($wordlist as $key => $val){
 		echo "<div id='wordq".($key + 1)."' class='noview'>".$val[0]."</div>";
 		echo "<div id='worda".($key + 1)."' class='noview'>".$val[1]."</div>";
 	}
+
+$_SESSION['pagedata']['page_num'] = $page;
+$_SESSION['pagedata']['question'] = $question;
+$_SESSION['pagedata']['answer'] = $disp_answer;
+$_SESSION['pagedata']['words'] = $wordlist;
+
 ?>
 </body>
 <script type="text/javascript" async="" src="/js/footer.js"></script>

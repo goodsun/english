@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>TOKYO GOODSUN ENGLISH | PROGRESS</title>
+<title>TOKYO GOODSUN ENGLISH | MENU</title>
 </head>
 <style>
 body { background-color: #000000; }
@@ -15,8 +15,12 @@ h1 {
 	}
 }
 h2 {
-	font-size:80px;
-	color: #ffffff;
+	font-size:60px;
+	color: #FFFFFF;
+}
+h3 {
+	font-size:50px;
+	color: #BBBBBB;
 }
 p {
 	margin:5px 15px;
@@ -51,8 +55,22 @@ a {
 }
 </style>
 <body>
-<h1><a id="home" href="/"><span>E</span>GT</a> | PROGRESS</h1>
+<h1><a id="home" href="/"><span>E</span>GT</a> | MENU</h1>
 <?php
+if($_SESSION['pagedata']){
+	echo "<p>TEXT : ".$_SESSION['text'].' : Q.',$_SESSION['nowpage'].'</p>';
+	echo "<h2 id='question'>".$_SESSION["pagedata"]["question"]."</h2>";
+	echo "<h3>".$_SESSION["pagedata"]["answer"]."</h3>";
+	echo "<p>";
+	$word_speech_links = [];
+	foreach($_SESSION["pagedata"]['words'] as $word){
+		$word_speech_links[] = '<a onclick="speech(\''.$word[0].'\')">'.$word[0].'</a> : '.$word[1];
+	}
+	echo '<b>WORDS</b> '.implode(' | ',$word_speech_links);
+	echo "</p>";
+}
+
+echo"<hr />";
 echo"<p>";
 if($_GET['mode'] == 'clear'){
 	$_SESSION['study_data'] = [];
@@ -65,7 +83,7 @@ echo " | <a href='/?mode=progress'>PROGRESS</a>";
 if ($_SESSION['study_mode'] != 'retry' && $_SESSION['study_data']['fail']){
 	echo " | <a href='/?mode=retry'>RETRY</a>";
 }
-echo"<p>";
+echo "</p>";
 
 $arr = $_SESSION['study_data']['fail'];
 if(!empty($arr)){
@@ -104,12 +122,17 @@ if(!empty($arr)){
 
 </body>
 <script type="text/javascript">
-
+	var question = document.getElementById('question').textContent;
 	document.addEventListener('keydown', function(event) {
 		if (event.key === 'ArrowUp') {
 			document.getElementById('home').click();
 		}
-		if (event.key === '_') {
+
+		if (event.key === 'Shift') {
+			speech(question);
+		}
+
+		if (event.key === 'Enter') {
 			window.speechSynthesis.cancel()
 		}
 	});
@@ -122,6 +145,7 @@ if(!empty($arr)){
 		u.rate = 0.8;
 		window.speechSynthesis.speak(u);
 	}
+
 	function explain(info,word) {
 		speech(word);
 		alert(info);

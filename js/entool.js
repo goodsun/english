@@ -9,19 +9,17 @@
   var wordmodal = document.getElementById("wordmodal");
   var dispwmodal = false;
 
-	function toggleWordModal(dispword,u) {
+	function toggleWordModal(dispword) {
     answermodal.classList.remove("active");
     dispmodal = false;
     if(dispwmodal){
       wordmodal.classList.remove("active");
       dispwmodal = false;
-      window.speechSynthesis.cancel()
     } else {
       wordmodal.classList.add("active");
       dispwmodal = true;
       var wordmodalcontent = document.getElementById("wordmodalcontent");
       wordmodalcontent.textContent = dispword;
-      window.speechSynthesis.speak(u);
     }
   }
 
@@ -38,9 +36,9 @@
   }
 
 	document.addEventListener('keydown', function(event) {
-    window.speechSynthesis.cancel()
 
 		if (event.key === '/' || event.key === 'Enter') {
+      window.speechSynthesis.cancel()
       answermodal.classList.remove("active");
       wordmodal.classList.remove("active");
       dispmodal = false;
@@ -73,9 +71,11 @@
 		}
 
 		if (event.key === 'ArrowRight') {
+      window.speechSynthesis.cancel()
 			document.getElementById('nextlink').click();
 		}
 		if (event.key === 'ArrowLeft') {
+      window.speechSynthesis.cancel()
 			document.getElementById('prevlink').click();
 		}
 		if (event.key === 'ArrowUp') {
@@ -134,13 +134,21 @@
 		}
 	});
 
+  var answer_story = new SpeechSynthesisUtterance();
+
 	function speech(word) {
 		window.speechSynthesis.cancel()
-		var u = new SpeechSynthesisUtterance();
-		u.text = word;
-		u.lang = target_lang_cord;
-		u.rate = 0.8;
-		window.speechSynthesis.speak(u);
+		answer_story.text = word;
+		answer_story.lang = target_lang_cord;
+		answer_story.rate = 0.8;
+    answer_story.onend = function(event) {
+        if(automode == 'auto') {
+          setTimeout(function() {
+           document.getElementById('nextlink').click();
+          }, 1500);
+        }
+    };
+		window.speechSynthesis.speak(answer_story);
 	}
 	function ansspeech(word) {
 		window.speechSynthesis.cancel()
@@ -151,10 +159,18 @@
 		window.speechSynthesis.speak(u);
 	}
 	function wordAnswer(question,answer) {
-		window.speechSynthesis.cancel()
-		var u = new SpeechSynthesisUtterance();
-		u.text = question;
-		u.lang = target_lang_cord;
-		u.rate = 0.8;
-		toggleWordModal(question +' : '+ answer,u);
+		//window.speechSynthesis.cancel()
+		//var u = new SpeechSynthesisUtterance();
+		//u.text = question;
+		//u.lang = target_lang_cord;
+		//u.rate = 0.8;
+		//toggleWordModal(question +' : '+ answer,u);
+		toggleWordModal(question +' : '+ answer);
 	}
+
+  setTimeout(function() {
+    if(automode == 'auto'){
+      document.getElementById('speechlink').click();
+    }
+  }, 500);
+
