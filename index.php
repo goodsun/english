@@ -5,6 +5,7 @@
 <title>TOKYO GOODSUN ENGLISH</title>
 </head>
 <link rel="stylesheet" href="/css/main.css" media="all">
+<link rel="stylesheet" href="/css/modal.css" media="all">
 <script type="text/javascript" async="" src="/js/entool.js"></script>
 <body>
 <?php
@@ -205,6 +206,8 @@
 	}
 
 	$question = $data[$page]['target_lang'];
+	$speech_question = str_replace('"','', $question);
+
 	$wordlist = [];
 	if($_SESSION['disp'] == '' or $_SESSION['disp'] == 'target_lang'){
 		$disp_answer = $data[$page]['main_lang'];
@@ -216,6 +219,28 @@
 		echo $data[$page]['main_lang']."<br />";
 	}
 	$speech_answer = $data[$page]['main_lang'];
+
+
+	echo '
+	<div id="answermodal" class="modal-container" onclick="toggleAnswerModal()">
+		<div class="modal-body">
+			<div class="modal-content">
+					<p class="txt">'.$disp_answer.'</p>
+			</div>
+		</div>
+	</div>
+	';
+
+	echo '
+	<div id="wordmodal" class="modal-container" onclick="toggleWordModal()">
+		<div class="modal-body">
+			<div class="modal-content">
+					<p id="wordmodalcontent" class="txt"></p>
+			</div>
+		</div>
+	</div>
+	';
+
 	echo "<h2>";
 
 
@@ -224,8 +249,8 @@
 	echo "<a id='clearlink' href='?page=".($page)."&set=delete'><button class='selbutton clear'>clear</button></a>";
 	echo "<a id='masterlink' href='?page=".($page)."&set=success'><button class='selbutton master'>Master</button></a>";
 
-	echo '<input id="answerlink" class="button" type="button" onclick="answer(\''.$disp_answer.'\')" value="Anser" />';
-	echo '<input id="speechlink" class="button" type="button" onclick="speech(\''.str_replace("'","\'",$question).'\')" value="speak" />';
+	echo '<input id="answerlink" class="button" type="button" onclick="toggleAnswerModal()" value="Anser" />';
+	echo '<input id="speechlink" class="button" type="button" onclick="speech(\''.str_replace("'","\'",$speech_question).'\')" value="speak" />';
 
 	if(prevPage($arr,$page)){
 		echo "<a id='prevlink' href='?page=".prevPage($arr,$page)."'><button class='button'>Prev Q.".prevPage($arr,$page)."</button></a>";

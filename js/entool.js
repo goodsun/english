@@ -4,12 +4,58 @@
 			wordAnswer(wq,wa);
 	}
 
-	document.addEventListener('keydown', function(event) {
+  var answermodal = document.getElementById("answermodal");
+  var dispmodal = false;
+  var wordmodal = document.getElementById("wordmodal");
+  var dispwmodal = false;
 
-		console.log(event.key);
+	function toggleWordModal(dispword,u) {
+    answermodal.classList.remove("active");
+    dispmodal = false;
+    if(dispwmodal){
+      wordmodal.classList.remove("active");
+      dispwmodal = false;
+      window.speechSynthesis.cancel()
+    } else {
+      wordmodal.classList.add("active");
+      dispwmodal = true;
+      var wordmodalcontent = document.getElementById("wordmodalcontent");
+      wordmodalcontent.textContent = dispword;
+      window.speechSynthesis.speak(u);
+    }
+  }
+
+	function toggleAnswerModal() {
+    wordmodal.classList.remove("active");
+    dispwmodal = false;
+    if(dispmodal){
+      answermodal.classList.remove("active");
+      dispmodal = false;
+    } else {
+      answermodal.classList.add("active");
+      dispmodal = true;
+    }
+  }
+
+	document.addEventListener('keydown', function(event) {
+    window.speechSynthesis.cancel()
+
+		if (event.key === '/' || event.key === 'Enter') {
+      answermodal.classList.remove("active");
+      wordmodal.classList.remove("active");
+      dispmodal = false;
+      dispwmodal = false;
+    }
+
+
 		if ( event.key == '1' || event.key == '2' || event.key == '3' || event.key == '4' || event.key == '5' || event.key == '6' || event.key == '7' || event.key == '8' || event.key == '9') {
 			wordAnswerByNo(event.key);
 		}
+
+		if (event.key === 'Shift') {
+			speech(que);
+		}
+
 		if (event.key === '0') {
 			wordAnswerByNo('10');
 		}
@@ -26,7 +72,6 @@
 			wordAnswerByNo('14');
 		}
 
-
 		if (event.key === 'ArrowRight') {
 			document.getElementById('nextlink').click();
 		}
@@ -34,19 +79,13 @@
 			document.getElementById('prevlink').click();
 		}
 		if (event.key === 'ArrowUp') {
-			ansspeech(ans);
+      toggleAnswerModal();
 		}
 		if (event.key === '_') {
-			window.speechSynthesis.cancel()
+			ansspeech(ans);
 		}
 		if (event.key === 'ArrowDown') {
 			document.getElementById('proglink').click();
-		}
-		if (event.key === 'Shift') {
-			speech(que);
-		}
-		if (event.key === 'Enter') {
-			alert(ans);
 		}
 		if (event.key === 'y') {
 			console.log('progress');
@@ -69,11 +108,9 @@
 			document.getElementById('prevlink').click();
 		}
 		if (event.key === 'j') {
-			console.log(ans);
-			alert(answer);
+      toggleAnswerModal();
 		}
 		if (event.key === 'k') {
-			console.log(que);
 			speech(que);
 		}
 		if (event.key === 'l') {
@@ -113,16 +150,11 @@
 		u.rate = 1.4;
 		window.speechSynthesis.speak(u);
 	}
-	function answer(answer) {
-		alert(answer);
-	}
 	function wordAnswer(question,answer) {
 		window.speechSynthesis.cancel()
 		var u = new SpeechSynthesisUtterance();
 		u.text = question;
 		u.lang = target_lang_cord;
 		u.rate = 0.8;
-		window.speechSynthesis.speak(u);
-		alert(question +' : '+ answer);
-		window.speechSynthesis.cancel()
+		toggleWordModal(question +' : '+ answer,u);
 	}
