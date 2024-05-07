@@ -4,81 +4,8 @@
 <meta charset="utf-8">
 <title>TOKYO GOODSUN ENGLISH</title>
 </head>
-<style>
-body { background-color: #000000; }
-.linknum {
-	color:#666;
-	font-size:15px;
-}
-.noview {
-	color:#000;
-	width:1px;
-	height:1px;
-	overflow: hidden;
-}
-h1 {
-	font-size:40px;
-	color: #cccccc;
-	span {
-		color: #990000;
-	}
-}
-h2 {
-	font-size:80px;
-	color: #ffffff;
-	margin: 10px;
-}
-h3 {
-	font-size:40px;
-	color: #ffffff;
-	margin: 10px;
-}
-p {
-	color: #9999bb;
-	text-decoration: none;
-}
-span {
-	color: #bb9999;
-	text-decoration: none;
-}
-.fail {
-	color: #8888FF;
-}
-.success {
-	color: #FF8888;
-}
-a {
-	color: #9999bb;
-	text-decoration: none;
-}
-.lang {
-	margin: 0 15px
-}
-.list {
-	font-size:50px;
-	color: #FFFFFF;
-	text-decoration: none;
-	text-align: center;
-}
-.button {
-	margin:20px 2px;
-	padding:20px ;
-	width:48%;
-	font-size:50px;
-	color: #666666;
-	background-color: #BBBBBB;
-	border-radius: 20px;
-}
-.selbutton {
-	margin:20px 2px;
-	padding:20px ;
-	width:32%;
-	font-size:50px;
-	color: #666666;
-	background-color: #BBBBBB;
-	border-radius: 20px;
-}
-</style>
+<link rel="stylesheet" href="/css/main.css" media="all">
+<script type="text/javascript" async="" src="/js/entool.js"></script>
 <body>
 <?php
 
@@ -100,6 +27,7 @@ a {
 		}
 		return $val;
 	}
+
 	function nextPage($arr,$page){
 		asort($arr);
 		foreach($arr as $val){
@@ -125,12 +53,6 @@ a {
 		foreach($piriods as $piriod){
 			$word  = str_replace($piriod,' '.$piriod.' ', $word);
 		}
-		/*
-		$word  = str_replace('.',' . ', $word);
-		$word  = str_replace(',',' , ', $word);
-		$word  = str_replace('?',' ? ', $word);
-		$word  = str_replace('!',' ! ', $word);
-		*/
 		$words  = explode(' ', $word);
 		$wordlist = [];
 		$beforePref = " ";
@@ -157,6 +79,7 @@ a {
 		return $result;
 	}
 
+
 	if($_GET['mode'] == 'basic'){
 		unset($_SESSION['study_mode']);
 	}
@@ -173,7 +96,9 @@ a {
 	if($_SESSION["text"] == ""){
 		$_SESSION["text"] = "alice";
 	}
+
 	$textname = $_SESSION['text'];
+	include_once("./data/".$textname."/section.php");
 
 	$target_lang = explode("\n",file_get_contents("./data/".$textname."/".$target_lang_file));
 	$main_lang = explode("\n",file_get_contents("./data/".$textname."/".$main_lang_file));
@@ -188,11 +113,11 @@ a {
 	$d_en = explode("\n",file_get_contents("./dict/".$target_lang_file));
 	$dict_main_lang = explode("\n",file_get_contents("./dict/".$main_lang_file));
 	$dict = [];
+
 	foreach($d_en as $key => $val){
 		$dict[$val] = $dict_main_lang[$key];
 	}
 
-	include_once("./data/".$textname."/section.php");
 
 	if($_GET['page'] == ""){
 		if(isset($_SESSION['nowpage'])){
@@ -206,6 +131,7 @@ a {
 		$page = count($data) - 1;
 	}
 	$_SESSION['nowpage'] = $page;
+
 
 
 
@@ -226,7 +152,7 @@ a {
 	echo ' <br /> ';
 	echo "</h1>";
 
-	echo "<h3><a href='/progress.php'>";
+	echo "<h3><a href='/menu.php'>";
 	if ($_SESSION['study_mode'] == 'retry'){
 		$arr = $_SESSION['study_data']['fail'];
 		echo "RETRY MODE";
@@ -294,9 +220,9 @@ a {
 
 
 
-	echo "<a id='revlink' href='?page=".($page)."&set=fail'><button class='selbutton'>❌</button></a>";
-	echo "<a id='clearlink' href='?page=".($page)."&set=delete'><button class='selbutton'>-</button></a>";
-	echo "<a id='masterlink' href='?page=".($page)."&set=success'><button class='selbutton'>⭕️</button></a>";
+	echo "<a id='revlink' href='?page=".($page)."&set=fail'><button class='selbutton rev'>review</button></a>";
+	echo "<a id='clearlink' href='?page=".($page)."&set=delete'><button class='selbutton clear'>clear</button></a>";
+	echo "<a id='masterlink' href='?page=".($page)."&set=success'><button class='selbutton master'>Master</button></a>";
 
 	echo '<input id="answerlink" class="button" type="button" onclick="answer(\''.$disp_answer.'\')" value="Anser" />';
 	echo '<input id="speechlink" class="button" type="button" onclick="speech(\''.str_replace("'","\'",$question).'\')" value="speak" />';
@@ -304,12 +230,12 @@ a {
 	if(prevPage($arr,$page)){
 		echo "<a id='prevlink' href='?page=".prevPage($arr,$page)."'><button class='button'>Prev Q.".prevPage($arr,$page)."</button></a>";
 	}else{
-		echo "<a id='prevlink' href='/progress.php'><button class='button'>PROGRESS</button></a>";
+		echo "<a id='prevlink' href='/menu.php'><button class='button'>PROGRESS</button></a>";
 	}
 	if(nextPage($arr,$page)){
 		echo "<a id='nextlink' href='?page=".nextPage($arr,$page)."'><button class='button'>Next Q.".nextPage($arr,$page)."</button></a>";
 	}else{
-		echo "<a id='nextlink' href='/progress.php'><button class='button'>PROGRESS</button></a>";
+		echo "<a id='nextlink' href='/menu.php'><button class='button'>PROGRESS</button></a>";
 	}
 	echo '<p class="list">';
 	foreach($section as $key => $val){
@@ -320,17 +246,24 @@ a {
 	echo " Text ";
 
 	$dir = 'data';
+	$texts = [];
 	if (is_dir($dir)) {
 		if ($dh = opendir($dir)) {
 			while (($file = readdir($dh)) !== false) {
 				if($file != '.' && $file != '..') {
-				echo " | <a href='?settext=".$file."'>". $file . "</a>";
+				$texts[$file]= " | <a href='?settext=".$file."&page=1'>". $file . "</a>";
 				}
 			}
 			closedir($dh);
 		}
 	}
-	echo " | <a id='proglink' href='/progress.php'>SESSION</a>";
+
+	ksort($texts);
+	foreach($texts as $link){
+		echo $link;
+	}
+
+	echo " | <a id='proglink' href='/menu.php'>SESSION</a>";
 	echo "<br />";
 	echo " | <a id='basiclink' href='/?mode=basic'>BASIC</a>";
 	echo " | <a id='practicelink' href='/?mode=progress'>PROGRESS</a>";
@@ -347,140 +280,5 @@ a {
 	}
 ?>
 </body>
-<script type="text/javascript">
-
-	var main_lang_cord = document.getElementById('main_lang_cord').textContent
-	var target_lang_cord = document.getElementById('target_lang_cord').textContent
-	var que = document.getElementById('quiz').textContent
-	var ans = document.getElementById('answer').textContent
-
-	function wordAnswerByNo(num) {
-			var wq = document.getElementById('wordq'+num).textContent ;
-			var wa = document.getElementById('worda'+num).textContent ;
-			wordAnswer(wq,wa);
-	}
-
-	document.addEventListener('keydown', function(event) {
-
-		console.log(event.key);
-		if ( event.key == '1' || event.key == '2' || event.key == '3' || event.key == '4' || event.key == '5' || event.key == '6' || event.key == '7' || event.key == '8' || event.key == '9') {
-			wordAnswerByNo(event.key);
-		}
-		if (event.key === '0') {
-			wordAnswerByNo('10');
-		}
-		if (event.key === '-') {
-			wordAnswerByNo('11');
-		}
-		if (event.key === '^') {
-			wordAnswerByNo('12');
-		}
-		if (event.key === "¥") {
-			wordAnswerByNo('13');
-		}
-		if (event.key === "Backspace") {
-			wordAnswerByNo('14');
-		}
-
-
-		if (event.key === 'ArrowRight') {
-			document.getElementById('nextlink').click();
-		}
-		if (event.key === 'ArrowLeft') {
-			document.getElementById('prevlink').click();
-		}
-		if (event.key === 'ArrowUp') {
-			ansspeech(ans);
-		}
-		if (event.key === '_') {
-			window.speechSynthesis.cancel()
-		}
-		if (event.key === 'ArrowDown') {
-			document.getElementById('proglink').click();
-		}
-		if (event.key === 'Shift') {
-			speech(que);
-		}
-		if (event.key === 'Enter') {
-			alert(ans);
-		}
-		if (event.key === 'y') {
-			console.log('progress');
-			document.getElementById('proglink').click();
-		}
-		if (event.key === 'n') {
-			console.log('basic');
-			document.getElementById('basiclink').click();
-		}
-		if (event.key === 'm') {
-			console.log('practice');
-			document.getElementById('practicelink').click();
-		}
-		if (event.key === ',') {
-			console.log('review');
-			document.getElementById('reviewlink').click();
-		}
-		if (event.key === 'h') {
-			console.log('back');
-			document.getElementById('prevlink').click();
-		}
-		if (event.key === 'j') {
-			console.log(ans);
-			alert(answer);
-		}
-		if (event.key === 'k') {
-			console.log(que);
-			speech(que);
-		}
-		if (event.key === 'l') {
-			console.log('next');
-			document.getElementById('nextlink').click();
-		}
-		if (event.key === 'u') {
-			console.log('review');
-			document.getElementById('revlink').click();
-		}
-		if (event.key === 'i') {
-			console.log('clear');
-			document.getElementById('clearlink').click();
-		}
-		if (event.key === 'o') {
-			console.log('master');
-			document.getElementById('masterlink').click();
-		}
-		if (event.key === '.') {
-			ansspeech(ans);
-		}
-	});
-
-	function speech(word) {
-		window.speechSynthesis.cancel()
-		var u = new SpeechSynthesisUtterance();
-		u.text = word;
-		u.lang = target_lang_cord;
-		u.rate = 0.8;
-		window.speechSynthesis.speak(u);
-	}
-	function ansspeech(word) {
-		window.speechSynthesis.cancel()
-		var u = new SpeechSynthesisUtterance();
-		u.text = word;
-		u.lang = main_lang_cord;
-		u.rate = 1.4;
-		window.speechSynthesis.speak(u);
-	}
-	function answer(answer) {
-		alert(answer);
-	}
-	function wordAnswer(question,answer) {
-		window.speechSynthesis.cancel()
-		var u = new SpeechSynthesisUtterance();
-		u.text = question;
-		u.lang = target_lang_cord;
-		u.rate = 0.8;
-		window.speechSynthesis.speak(u);
-		alert(question +' : '+ answer);
-		window.speechSynthesis.cancel()
-	}
-</script>
+<script type="text/javascript" async="" src="/js/footer.js"></script>
 </html>

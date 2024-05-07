@@ -53,12 +53,11 @@ a {
 <body>
 <h1><a id="home" href="/"><span>E</span>GT</a> | PROGRESS</h1>
 <?php
+echo"<p>";
 if($_GET['mode'] == 'clear'){
 	$_SESSION['study_data'] = [];
 	echo "Cleard Session Data!<br />";
 }
-
-echo"<p>";
 echo "MODE: <a href='/?mode=basic'>BASIC</a>";
 if ($_SESSION['study_mode'] != 'progress' && $_SESSION['study_data']['success']){
 echo " | <a href='/?mode=progress'>PROGRESS</a>";
