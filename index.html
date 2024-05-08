@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>TOKYO GOODSUN ENGLISH</title>
+</head>
+<link rel="stylesheet" href="/css/reset.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+<link rel="stylesheet" href="/css/modal.css" media="all">
+<body>
+	<div class='menu-base'>
+		<div class='title-area'>
+			<span class="master">GT</span><span class="wordlink">English</span>
+			| <span id="textName">basic</span> | Section.<span id="HeadSnum">0</span>
+			: Q.<span id="HeadQnum">0</span>
+		</div>
+		<div class='menu-area'>
+			<span onclick="togglePlayMode()" id="HeadPM">🔉</span>
+			<span onclick="toggleMenuModal()" class="wordlink">
+			MENU
+			</span>
+		</div>
+	</div>
+	<div class='main-content'>
+		<h2>
+		<span id="understand" class="master"></span>
+		<span id="question">TOKYO GOODSUN ENGLISH</span> 
+		</h2>
+		<div class="dummyarea"></div>
+
+		<div id="answermodal" class="modal-container" onclick="toggleAnswerModal()">
+			<div class="modal-body">
+				<div class="modal-content">
+					<p class="txt" id="answer">
+						Tokyo Goodsun English<br />
+						(c) 2024 bon soleil All rights reserved
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="wordmodal" class="modal-container" onclick="toggleWordModal()">
+		<div class="modal-body">
+			<div class="modal-content">
+				<p id="wordmodalcontent" class="txt"></p>
+			</div>
+		</div>
+	</div>
+	<div id="menumodal" class="modal-container" onclick="toggleMenuModal()">
+		<div class="modal-body">
+			<div class="modal-content">
+				<p id="menumodalcontent" class="txt">
+					<h1 class='menutitle'>Menu</h1>	
+					<p >mode: <a id="playmode" class="wordlink" onclick="togglePlayMode()">oneshot</a></p>	
+					<p >speed: 
+						<a class="wordlink" onclick="setSpeed(0.7)">slow</a>
+						| <a class="wordlink" onclick="setSpeed(1.0)">normal</a>
+						| <a class="wordlink" onclick="setSpeed(1.3)">fast</a>
+					</p>	
+					<p id="classList">Goodsun Tokyo English</p>	
+					<p id="sectionList">(c)2024 bonsoleil</p>	
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class='controller-adv'>
+		<div class='controller-area' id="modeCont" onclick="togglePlayMode()">
+			MODE
+		</div>
+		<div class='controller-area' id="player" onclick="togglePlay()">
+			PLAY
+		</div>
+		<div class='controller-area' onclick="toggleMenuModal()">
+			MENU
+		</div>
+	</div>
+	<div class='controller-base'>
+		<div class='controller-area' onclick="prevPage()">
+			PREV
+		</div>
+		<div class='controller-area' onclick="toggleAnswerModal()">
+			ANSWER
+		</div>
+		<div class='controller-area' onclick="nextPage()">
+			NEXT
+		</div>
+	</div>
+
+</body>
+<script type="text/javascript" src="/js/gettext.js"></script>
+<script type="text/javascript" src="/js/setquiz.js"></script>
+<script type="text/javascript" src="/js/speech.js"></script>
+</html>

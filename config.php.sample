@@ -13,3 +13,5 @@
 	$short_target_lang = "US";
 	$target_lang_cord = "en-US";
 	$target_lang_file = "en.dat";
+
+	$textname = "3pigs";

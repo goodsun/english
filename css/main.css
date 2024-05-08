@@ -1,4 +1,7 @@
-body { background-color: #000000; }
+body { 
+	background-color: #000000;
+	padding: 0;
+}
 .linknum {
 	color:#666;
 	font-size:15px;
@@ -31,23 +34,8 @@ p {
 	text-decoration: none;
 }
 span {
-	color: #bb9999;
+	color: #bbbbbb;
 	text-decoration: none;
-}
-.fail {
-	color: #8888FF;
-}
-.seccess {
-	color: #FF8888;
-}
-.clear {
-	color: #666666;
-}
-.master {
-	color: #AA0000;
-}
-.rev {
-	color: #0000AA;
 }
 a {
 	color: #9999bb;
@@ -79,3 +67,91 @@ a {
 	background-color: #BBBBBB;
 	border-radius: 20px;
 }
+.menu-base{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width:100%;
+	height:80px;
+	background-color: #111111;
+}
+.title-area{
+	position: absolute;
+	top: 15px;
+	left: 20px; 
+	color: #AAAAAA;
+	font-size:40px;
+	font-weight:bold;
+}
+.menu-area{
+	position: absolute;
+	top: 15px;
+	right: 20px; 
+	color: #64a193;
+	font-size:40px;
+	font-weight:bold;
+}
+.main-content{
+	width:100%;
+	margin:100px 20px 0px 20px;
+}
+.controller-adv{
+	position: fixed;
+	bottom: 120px;
+	left: 0; 
+	width:100%;
+	height:120px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+.controller-base{
+	position: fixed;
+	bottom: 0;
+	left: 0; 
+	width:100%;
+	height:120px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+.controller-area{
+	flex: 1;
+	padding: 30px;
+	text-align: center; 
+	background-color: #111111;
+	color: #64a193;
+	font-size:50px;
+	font-weight:bold;
+}
+.menutitle{
+	color: #666666;
+}
+.sectionlink{
+	color: #64a193;
+	margin-right:20px;
+}
+.dummyarea{
+	display: block;
+	width:100%;
+	height:240px;
+}
+.wordlink {
+	color: #64a193;
+}
+.fail {
+	color: #8888FF;
+}
+.seccess {
+	color: #FF8888;
+}
+.clear {
+	color: #666666;
+}
+.master {
+	color: #AA0000;
+}
+.rev {
+	color: #0000AA;
+}
+
