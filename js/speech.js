@@ -6,6 +6,9 @@
 	function setSpeed(val) {
     speed = val;
   }
+	function setInterval(val) {
+    interval = val;
+  }
 
 	function speech(word,lang) {
 		window.speechSynthesis.cancel()

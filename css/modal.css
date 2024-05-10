@@ -45,7 +45,7 @@
 }
  
 .modal-content {
-  background: #fff;
+  background: rgba(255,255,255,85%);
   border: none;
   text-align: left;
   padding: 30px;

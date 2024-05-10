@@ -30,7 +30,7 @@
     if(playmode == "oneshot"){
       playmode = "repeat";
       headPM.textContent = '🔄';
-      modeCont.textContent= 'REPEAT';
+      modeCont.textContent= 'AUTO';
     }else{
       playmode = "oneshot";
       headPM.textContent = '🔉';
