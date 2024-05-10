@@ -97,10 +97,10 @@ a {
 }
 .controller-adv{
 	position: fixed;
-	bottom: 120px;
+	bottom: 250px;
 	left: 0; 
 	width:100%;
-	height:120px;
+	height:250px;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
@@ -110,14 +110,14 @@ a {
 	bottom: 0;
 	left: 0; 
 	width:100%;
-	height:120px;
+	height:250px;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 }
 .controller-area{
 	flex: 1;
-	padding: 30px;
+	padding: 90px 30px;
 	text-align: center; 
 	background-color: #111111;
 	color: #64a193;
@@ -134,7 +134,7 @@ a {
 .dummyarea{
 	display: block;
 	width:100%;
-	height:240px;
+	height:640px;
 }
 .toolControler{
 	margin:20px;
@@ -142,13 +142,14 @@ a {
 	right:20px;
 }
 .studyTool {
-	font-size:60px;
+	font-size:70px;
 	margin-bottom:0px;
-	height:60px;
+	padding-top:20px;
+	height:150px;
 	width:30px
 }
 .toollink {
-	font-size: 40px;
+	font-size: 70px;
 }
 
 .wordlink {

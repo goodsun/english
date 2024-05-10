@@ -5,12 +5,12 @@
 <title>TOKYO GOODSUN ENGLISH</title>
 </head>
 <link rel="stylesheet" href="/css/reset.css" media="all">
-<link rel="stylesheet" href="/css/main.css" media="all">
+<link rel="stylesheet" id="maincss" href="/css/main.css" media="all">
 <link rel="stylesheet" href="/css/modal.css" media="all">
 <body>
 	<div class='menu-base'>
 		<div class='title-area'>
-			<span class="master">GT</span><span class="wordlink">English</span>
+			<span class="master">GT</span> <span class="wordlink" onclick="test()">English</span>
 			| <span id="textName">basic</span> | Section.<span id="HeadSnum">0</span>
 			: Q.<span id="HeadQnum">0</span>
 		</div>
@@ -22,9 +22,16 @@
 		</div>
 	</div>
 	<div class='main-content'>
+		<div class="toolControler">
+		<span class="toollink check" onclick="saveData('check')">check</span>
+		<span class="toollink remove" onclick="removeData()">remove</span>
+		<span class="toollink master" onclick="saveData('master')">master</span>
+		</div>
+		<p class="studyTool">
+			<span id="understand" class="master"></span>
+		</p>
 		<h2>
-		<span id="understand" class="master"></span>
-		<span id="question">TOKYO GOODSUN ENGLISH</span> 
+		<span id="question">TOKYO <span class="master" onclick="test()">GOODSUN</span> ENGLISH</span> 
 		</h2>
 		<div class="dummyarea"></div>
 
@@ -72,6 +79,10 @@
 					</p>	
 					<p id="classList">Goodsun Tokyo English</p>	
 					<p id="sectionList">(c)2024 bonsoleil</p>	
+					<p>
+						MEMORY : <span class="wordlink" onclick="removeItem()">Clear</span>
+						| <span class="wordlink" onclick="storageReset()">All Reset</span>
+					<p>
 				</p>
 			</div>
 		</div>
@@ -103,4 +114,6 @@
 <script type="text/javascript" src="/js/gettext.js"></script>
 <script type="text/javascript" src="/js/setquiz.js"></script>
 <script type="text/javascript" src="/js/speech.js"></script>
+<script type="text/javascript" src="/js/storage.js"></script>
+<script type="text/javascript" src="/js/changecss.js"></script>
 </html>

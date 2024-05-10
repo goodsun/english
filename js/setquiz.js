@@ -1,5 +1,6 @@
   // SETQUIZ
   let quiz_no = 0;
+  var understand = document.getElementById("understand");
   var headSnum = document.getElementById("HeadSnum");
   var headQnum = document.getElementById("HeadQnum");
   var headPM = document.getElementById("HeadPM");
@@ -103,7 +104,7 @@
   }
 
 	function setQuizData() {
-
+      
       answermodal.classList.remove("active");
       dispmodal = false;
       wordmodal.classList.remove("active");
@@ -125,6 +126,25 @@
         headSnum.textContent = key;
       }
       console.log('SetQuiz:' + quiz_no + " (Sec." + headSnum.textContent+")");
+      understandCheck();
+  }
+
+  function understandCheck(){
+      if(storageData[quiz_no] == 'master'){
+        console.log('this is master');
+        understand.textContent = 'master';
+        understand.classList.remove(...understand.classList);
+        understand.classList.add('master');
+      }else if(storageData[quiz_no] == 'check'){
+        console.log('this is check');
+        understand.textContent = 'check'
+        understand.classList.remove(...understand.classList);
+        understand.classList.add('check');
+      } else {
+        console.log('this is none');
+        understand.textContent = ''
+        understand.classList.remove(...understand.classList);
+      }
   }
 
    function nextPage() {
@@ -146,6 +166,15 @@
 
 	document.addEventListener('keydown', function(event) {
     console.log(event.key);
+		if (event.key === '/') {
+      saveData('master');
+    }
+		if (event.key === '.') {
+      removeData();
+    }
+		if (event.key === ',') {
+      saveData('check');
+    }
 		if (event.key === 'Backspace') {
       toggleMenuModal();
     }
@@ -174,9 +203,11 @@
       toggleAnswerModal();
     }
 		if (event.key === 'ArrowRight') {
+      speechStop();
       nextPage();
 		}
 		if (event.key === 'ArrowLeft') {
+      speechStop();
       prevPage();
 		}
 

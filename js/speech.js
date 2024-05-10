@@ -20,7 +20,7 @@
           setTimeout(function() {
             console.log('speech success:'+ word+'['+lang+']');
             if(playmode=='repeat'){
-              nextPage();
+              proceedPage();
             }else{
               playing = false
               player.textContent = 'PLAY';
@@ -36,5 +36,15 @@
     window.speechSynthesis.cancel()
     playing = false
     player.textContent = 'PLAY';
-    
+  }
+
+	function proceedPage() {
+    if(storageData[quiz_no + 1] == 'master'){
+      console.log('次のページはマスターしています'+(quiz_no + 1));   
+      console.log(storageData[quiz_no + 1]);   
+      quiz_no += 1;
+      proceedPage();
+    }else{
+      nextPage();
+    }
   }
