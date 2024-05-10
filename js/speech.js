@@ -1,6 +1,7 @@
   var player = document.getElementById("player");
   let playing = false;
   let speed = 1.0;
+  let interval = 1500;
 
 	function setSpeed(val) {
     speed = val;
@@ -21,7 +22,7 @@
               playing = false
               player.textContent = 'PLAY';
             }
-          }, 1500);
+          }, interval);
     };
 		window.speechSynthesis.speak(u);
     playing = true;
